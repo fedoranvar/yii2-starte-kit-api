@@ -20,12 +20,7 @@ use yii\filters\auth\HttpBasicAuth;
 /**
  * Class ChatController
  */
-class ChatMessageController extends Controller
-{
-    /**
-     * @var string
-     */
-    public $modelClass = 'api\modules\v1\resources\ChatMessage';
+class ChatMessageController extends Controller {
 
     public function behaviors()
     {

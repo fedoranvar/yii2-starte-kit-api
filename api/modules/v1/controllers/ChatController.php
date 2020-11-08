@@ -4,6 +4,7 @@ namespace api\modules\v1\controllers;
 
 use Yii;
 use api\modules\v1\resources\Chat;
+use console\models\ChatUser;
 use yii\data\ActiveDataProvider;
 use yii\rest\ActiveController;
 use yii\rest\IndexAction;
@@ -19,12 +20,7 @@ use yii\filters\auth\HttpBasicAuth;
 /**
  * Class ChatController
  */
-class ChatController extends Controller
-{
-    /**
-     * @var string
-     */
-    public $modelClass = 'api\modules\v1\resources\Chat';
+class ChatController extends Controller {
 
     public function behaviors()
     {
@@ -185,6 +181,8 @@ class ChatController extends Controller
         ]);
 
         if ($model->save()) {
+
+            ChatUser::deleteAll(['chat_id' => $id]);
 
             return [
                 'status' => true,
