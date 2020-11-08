@@ -15,6 +15,7 @@ use yii\rest\Serializer;
 use yii\rest\ViewAction;
 use yii\rest\Controller;
 use yii\web\HttpException;
+use yii\filters\auth\HttpBasicAuth;
 
 /**
  * Class ChatController
@@ -25,6 +26,14 @@ class ChatMessageController extends Controller
      * @var string
      */
     public $modelClass = 'api\modules\v1\resources\ChatMessage';
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator']['class'] = HttpBasicAuth::className();
+        return $behaviors;
+    }
+
     /**
      * @SWG\Get(path="/v1/chat-message/index",
      *     tags={"Chat Message"},
