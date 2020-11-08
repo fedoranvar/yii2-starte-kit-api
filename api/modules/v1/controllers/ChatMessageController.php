@@ -38,6 +38,7 @@ class ChatMessageController extends Controller
      * @SWG\Get(path="/v1/chat-message/index",
      *     tags={"Chat Message"},
      *     summary="Retrieves the collection of Chat Messages.",
+     *    ),
      *     @SWG\Response(
      *         response = 200,
      *         description = "Chats collection response",
@@ -91,10 +92,9 @@ class ChatMessageController extends Controller
 
     public function actionIndex() {
         return new ActiveDataProvider(array(
-            'query' => ChatMessage::find()
+            'query' => ChatMessage::find()->where(['deleted_at' => null])
         ));
     }
-
 
     /**
      * @param $id
@@ -104,7 +104,6 @@ class ChatMessageController extends Controller
     public function actionView($id) {
         return $this->findModel($id);
     }
-
 
     public function actionCreate() {
 
@@ -213,6 +212,7 @@ class ChatMessageController extends Controller
     public function findModel($id) {
         $model = ChatMessage::find()
             ->where(['id' => (int)$id])
+            ->andWhere(['deleted_at' => null])
             ->one();
         if (!$model) {
             throw new HttpException(404);

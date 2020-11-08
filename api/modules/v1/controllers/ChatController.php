@@ -86,7 +86,7 @@ class ChatController extends Controller
 
     public function actionIndex() {
         return new ActiveDataProvider(array(
-            'query' => Chat::find()
+            'query' => Chat::find()->where(['deleted_at' => null])
         ));
     }
 
@@ -207,6 +207,7 @@ class ChatController extends Controller
     public function findModel($id) {
         $model = Chat::find()
             ->where(['id' => $id])
+            ->andWhere(['deleted_at' => null])
             ->one();
         if (!$model) {
             throw new HttpException(404);
