@@ -3,7 +3,7 @@
 namespace api\modules\v1\models\definitions;
 
 /**
- * @SWG\Definition(required={"user_id", "chat_id", "content", "created_at"})
+ * @SWG\Definition(required={"user_id", "chat_id", "content"})
  *
  * @SWG\Property(property="id", type="integer")
  * @SWG\Property(property="user_id", type="integer")

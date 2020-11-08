@@ -33,7 +33,6 @@ class ChatMessageController extends Controller {
      * @SWG\Get(path="/v1/chat-message/index",
      *     tags={"Chat Message"},
      *     summary="Retrieves the collection of Chat Messages.",
-     *    ),
      *     @SWG\Response(
      *         response = 200,
      *         description = "Chats collection response",
@@ -81,11 +80,14 @@ class ChatMessageController extends Controller {
      * )
      */
 
-    public function actionSecurity() {
-        return Yii::$app->user->identity;
-    }
-
     public function actionIndex() {
+
+        $request = Yii::$app->request;
+
+        if (!$request->isGET) {
+            return 'Only GET-method allowed!';
+        }
+
         return new ActiveDataProvider(array(
             'query' => ChatMessage::find()->where(['deleted_at' => null])
         ));
@@ -97,6 +99,13 @@ class ChatMessageController extends Controller {
      * @throws HttpException
      */
     public function actionView($id) {
+
+        $request = Yii::$app->request;
+
+        if (!$request->isGET) {
+            return 'Only GET-method allowed!';
+        }
+
         return $this->findModel($id);
     }
 

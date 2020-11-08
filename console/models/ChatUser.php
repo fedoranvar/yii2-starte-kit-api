@@ -3,6 +3,7 @@
 namespace console\models;
 
 use Yii;
+Use common\models\User;
 
 /**
  * This is the model class for table "chat_user".

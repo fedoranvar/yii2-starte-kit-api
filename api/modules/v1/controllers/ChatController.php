@@ -4,7 +4,7 @@ namespace api\modules\v1\controllers;
 
 use Yii;
 use api\modules\v1\resources\Chat;
-use console\models\ChatUser;
+use api\modules\v1\resources\ChatUser;
 use yii\data\ActiveDataProvider;
 use yii\rest\ActiveController;
 use yii\rest\IndexAction;
@@ -39,7 +39,6 @@ class ChatController extends Controller {
      *         @SWG\Schema(ref = "#/definitions/Chat")
      *     ),
      * )
-     *
      * @SWG\Get(path="/v1/chat/view",
      *     tags={"Chat"},
      *     summary="Displays data of one chat only",
@@ -49,7 +48,6 @@ class ChatController extends Controller {
      *         @SWG\Schema(ref = "#/definitions/Chat")
      *     ),
      * )
-     *
      * @SWG\Post(path="/v1/chat/create",
      *     tags={"Chat"},
      *     summary="Create chat",
@@ -81,6 +79,13 @@ class ChatController extends Controller {
 
 
     public function actionIndex() {
+
+        $request = Yii::$app->request;
+
+        if (!$request->isGET) {
+            return 'Only GET-method allowed!';
+        }
+
         return new ActiveDataProvider(array(
             'query' => Chat::find()->where(['deleted_at' => null])
         ));
@@ -93,6 +98,13 @@ class ChatController extends Controller {
      * @throws HttpException
      */
     public function actionView($id) {
+
+        $request = Yii::$app->request;
+
+        if (!$request->isGET) {
+            return 'Only GET-method allowed!';
+        }
+
         return $this->findModel($id);
     }
 
