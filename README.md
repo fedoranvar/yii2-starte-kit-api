@@ -10,6 +10,7 @@
     git clone git@github.com:fedoranvar/yii2-starter-kit-api.git
     cd myproject.com
     composer run-script docker:build
+    docker-compose exec app console/yii app/setup
     ```
 5. Go to [http://yii2-starter-kit.localhost](http://yii2-starter-kit.localhost)
 
